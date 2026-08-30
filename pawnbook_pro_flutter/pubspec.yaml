@@ -1,0 +1,29 @@
+name: pawnbook_pro_flutter
+description: PawnBook Pro v2.0 — Advanced Jewelry Pawn Broking ERP. Complete client-side offline-first solution.
+version: 2.0.0+1
+
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Local persistence layer
+  shared_preferences: ^2.2.0
+
+  # Date & currency formatting utilities
+  intl: ^0.18.1
+
+  # Network requests package
+  http: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true

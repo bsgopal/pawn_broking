@@ -1,0 +1,74 @@
+{
+  "name": "pawnbook-pro",
+  "productName": "PawnBook Pro",
+  "version": "2.0.0",
+  "description": "PawnBook Pro — Secure Jewelry Pawn Broking ERP for Windows",
+  "main": "main.js",
+  "author": "PawnBook Pro Team",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron .",
+    "prepare-build": "node scripts/prepare-build.js",
+    "build": "npm run prepare-build && electron-builder --win --x64",
+    "build:dir": "npm run prepare-build && electron-builder --win --x64 --dir",
+    "pack-only": "electron-builder --win --x64"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "cors": "2.8.5",
+    "body-parser": "1.20.2",
+    "jsonwebtoken": "9.0.0"
+  },
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "com.pawnbook.pro",
+    "productName": "PawnBook Pro",
+    "copyright": "Copyright © 2026 PawnBook Pro Team",
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "node_modules/**/*",
+      "!node_modules/.cache",
+      "!node_modules/electron-builder",
+      "!node_modules/electron"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": ["**/*", "!.cache"]
+      },
+      {
+        "from": "frontend",
+        "to": "frontend",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "PawnBook Pro",
+      "installerHeader": "assets/installerHeader.bmp",
+      "license": "assets/license.txt",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

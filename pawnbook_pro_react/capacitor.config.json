@@ -1,0 +1,6 @@
+{
+  "appId": "com.pawnbook.pro",
+  "appName": "PawnBook Pro",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

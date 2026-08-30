@@ -1,0 +1,166 @@
+﻿# =============================================================================
+# Pawn Broking ERP — Root .gitignore
+# Covers: Node.js · React/Vite · Electron · Flutter
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Node.js / npm / yarn / pnpm (backend, react, electron)
+# -----------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# -----------------------------------------------------------------------------
+# Build outputs
+# -----------------------------------------------------------------------------
+dist/
+dist-ssr/
+build/
+out/
+.output/
+
+# -----------------------------------------------------------------------------
+# Vite / React
+# -----------------------------------------------------------------------------
+*.local
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# -----------------------------------------------------------------------------
+# Electron
+# -----------------------------------------------------------------------------
+release/
+*.asar
+app-builds/
+
+# -----------------------------------------------------------------------------
+# Flutter / Dart
+# -----------------------------------------------------------------------------
+**/flutter/build/
+**/flutter/.dart_tool/
+**/flutter/.flutter-plugins
+**/flutter/.flutter-plugins-dependencies
+**/flutter/.packages
+**/flutter/pubspec.lock
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# Android (inside flutter)
+**/android/.gradle/
+**/android/local.properties
+**/android/key.properties
+**/android/app/debug.keystore
+**/android/app/release.keystore
+**/android/captures/
+
+# iOS (inside flutter)
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Flutter/App.framework
+**/ios/Flutter/ephemeral/
+**/ios/ServiceDefinitions.json
+
+# macOS (inside flutter)
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+
+# Windows (inside flutter)
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# Web (inside flutter)
+**/web/flutter_service_worker.js
+
+# -----------------------------------------------------------------------------
+# Environment & secrets
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+
+# -----------------------------------------------------------------------------
+# Data / database files (backend local data)
+# -----------------------------------------------------------------------------
+pawnbook_pro_backend/data/*.json
+pawnbook_pro_backend/data/*.db
+pawnbook_pro_backend/data/*.sqlite
+pawnbook_pro_backend/data/*.sqlite3
+*.db
+*.sqlite
+*.sqlite3
+
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+logs/
+*.log
+*.log.*
+
+# -----------------------------------------------------------------------------
+# OS generated files
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# -----------------------------------------------------------------------------
+# IDE / editor
+# -----------------------------------------------------------------------------
+.vscode/
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.bak
+*.orig
+
+# -----------------------------------------------------------------------------
+# Test & coverage
+# -----------------------------------------------------------------------------
+coverage/
+*.lcov
+.nyc_output/
+
+# -----------------------------------------------------------------------------
+# Misc
+# -----------------------------------------------------------------------------
+*.tgz
+*.tar.gz
+*.zip
+.cache/
+.parcel-cache/
+.turbo/
+.vercel/
+.netlify/
