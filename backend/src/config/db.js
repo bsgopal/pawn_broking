@@ -6,7 +6,7 @@ export async function connectDB() {
   }
   try {
     const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pawnbook_master';
-    const conn = await mongoose.connect(mongoUri);
+    const conn = await mongoose.connect(mongoUri, { dbName: 'pawnbook_master' });
     console.log(`[MongoDB Connected]: ${conn.connection.host}/${conn.connection.name}`);
     return conn;
   } catch (error) {
