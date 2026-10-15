@@ -59,8 +59,8 @@ export function getTenantDb(customerCode) {
   let cleanCode = (customerCode || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
   
   let dbName;
-  if (!cleanCode || cleanCode === 'default') {
-    dbName = 'pawnbroking-default';
+  if (!cleanCode || cleanCode === 'default' || cleanCode === 'pawnbook_master' || cleanCode === 'master' || cleanCode === 'renic-pb') {
+    dbName = 'pawnbook_master';
   } else if (cleanCode.startsWith('pawnbroking-') || cleanCode.startsWith('pawnbroking_')) {
     dbName = cleanCode;
   } else if (cleanCode.startsWith('renic_tenant_') || cleanCode.startsWith('renic_trial_')) {
@@ -68,7 +68,7 @@ export function getTenantDb(customerCode) {
     dbName = `pawnbroking-${slug}`;
   } else {
     const slug = cleanCode.replace(/^(pawnbroking[-_]|renic_tenant_)+/g, '');
-    dbName = `pawnbroking-${slug}`;
+    dbName = slug ? `pawnbroking-${slug}` : 'pawnbook_master';
   }
 
   if (!mongoose.connection || mongoose.connection.readyState !== 1) {
@@ -83,6 +83,9 @@ export function getTenantDb(customerCode) {
  */
 export async function ensureTenantBootstrap(customerCode) {
   const cleanCode = (customerCode || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '') || 'default';
+  if (cleanCode === 'default' || cleanCode === 'pawnbook_master' || cleanCode === 'master' || cleanCode === 'renic-pb') {
+    return;
+  }
   if (bootstrappedTenants.has(cleanCode)) return;
   bootstrappedTenants.add(cleanCode);
 

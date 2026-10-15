@@ -14,18 +14,25 @@ export function getDetectedTenantCode() {
     }
   } catch (e) {}
 
-  const host = window.location.hostname.toLowerCase();
-  const stored = localStorage.getItem('pawn_tenant_code');
+  const host = typeof window !== 'undefined' ? window.location.hostname.toLowerCase() : '';
+  const stored = typeof window !== 'undefined' ? localStorage.getItem('pawn_tenant_code') : null;
   if (stored) return stored;
+
+  // Cloud platform subdomains (Vercel, Netlify, Render) must never be treated as tenant codes
+  if (
+    host.endsWith('.vercel.app') ||
+    host.endsWith('.now.sh') ||
+    host.endsWith('.onrender.com') ||
+    host.endsWith('.netlify.app')
+  ) {
+    return '';
+  }
 
   const parts = host.split('.');
   if (parts.length >= 3 && (parts[0] === 'pb' || parts[0] === 'pawn')) {
     return parts[1];
   }
-  if (parts.length >= 2 && !['localhost', '127.0.0.1'].includes(parts[0])) {
-    return parts[0];
-  }
-  return 'renic-pb';
+  return '';
 }
 
 const rawBase = import.meta.env.VITE_API_URL ? String(import.meta.env.VITE_API_URL).trim().replace(/\/+$/, '') : '';

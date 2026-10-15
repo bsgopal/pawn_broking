@@ -54,13 +54,23 @@ function heuristicCodeFromHost(rawHost) {
     hostWithoutPort === '127.0.0.1';
   if (isIp) return '';
 
+  // Cloud provider preview/deployment domains must NEVER be treated as tenant codes!
+  if (
+    hostWithoutPort.endsWith('.vercel.app') ||
+    hostWithoutPort.endsWith('.now.sh') ||
+    hostWithoutPort.endsWith('.onrender.com') ||
+    hostWithoutPort.endsWith('.netlify.app')
+  ) {
+    return '';
+  }
+
   const parts = hostWithoutPort.split('.');
   if (parts.length < 2) return '';
 
   let sub = parts[0];
   if (APP_SLUGS.has(sub) && parts.length >= 3) sub = parts[1];
 
-  const reserved = ['www', 'api', 'admin', 'hq', 'localhost', 'app', 'mail', 'ftp', 'lvh', 'local', 'pb', 'pawn'];
+  const reserved = ['www', 'api', 'admin', 'hq', 'localhost', 'app', 'mail', 'ftp', 'lvh', 'local', 'pb', 'pawn', 'pawn-broking', 'pawnbroking'];
   if (reserved.includes(sub) || /^\d+$/.test(sub)) return '';
   return sub;
 }
@@ -138,8 +148,8 @@ async function resolveTenant(req, res) {
   }
 
   // 5. Fallback default
-  if (!customerCode || customerCode === 'default' || /^\d+$/.test(customerCode)) {
-    customerCode = 'renic-pb';
+  if (!customerCode || customerCode === 'default' || customerCode === 'renic-pb' || /^\d+$/.test(customerCode)) {
+    customerCode = 'default';
     source = source === 'none' ? 'fallback-default' : source;
   }
 
