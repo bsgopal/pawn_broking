@@ -57,23 +57,24 @@ export async function reportScreenTelemetry(customerCode, screenPath, user, acti
  * until the client is verified and registered with valid Client ID & Client Secret in Renic Soft Master HQ.
  */
 export async function enforceClientRegistration(req, res, next) {
-  const url = req.originalUrl || req.url || '';
+  const rawUrl = req.originalUrl || req.url || '';
+  const pathname = rawUrl.split('?')[0];
   
   // Whitelisted endpoints that must remain accessible for licensing & authentication
   if (
-    url === '/' ||
-    url === '' ||
-    url === '/health' ||
-    url === '/api/health' ||
-    url.startsWith('/health') ||
-    url.startsWith('/api/health') ||
-    url.startsWith('/api/auth') ||
-    url.startsWith('/api/settings') ||
-    url.startsWith('/api/rates') ||
-    url.startsWith('/api/notifications') ||
-    url.startsWith('/api/v1/license') ||
-    url.startsWith('/api/tenant') ||
-    url.startsWith('/api/telemetry')
+    pathname === '/' ||
+    pathname === '' ||
+    pathname === '/health' ||
+    pathname === '/api/health' ||
+    pathname.startsWith('/health') ||
+    pathname.startsWith('/api/health') ||
+    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/settings') ||
+    pathname.startsWith('/api/rates') ||
+    pathname.startsWith('/api/notifications') ||
+    pathname.startsWith('/api/v1/license') ||
+    pathname.startsWith('/api/tenant') ||
+    pathname.startsWith('/api/telemetry')
   ) {
     return next();
   }
