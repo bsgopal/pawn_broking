@@ -61,6 +61,8 @@ export async function enforceClientRegistration(req, res, next) {
   
   // Whitelisted endpoints that must remain accessible for licensing & authentication
   if (
+    url === '/' ||
+    url === '' ||
     url === '/health' ||
     url === '/api/health' ||
     url.startsWith('/health') ||

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import { fileURLToPath } from 'url';
 
 import tenantResolver from './middleware/tenantResolver.js';
@@ -59,9 +60,13 @@ app.use(async (req, res, next) => {
 });
 
 // Serve static uploaded files (ornament photos, KYC documents, logos)
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+const uploadDir = process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, '../uploads');
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (e) {
+  console.warn('[PawnBook] Upload directory init skipped or read-only:', e.message);
 }
 app.use('/uploads', express.static(uploadDir));
 
@@ -98,13 +103,14 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/repledge', repledgeRoutes);
 
-// Health check
-app.get(['/health', '/api/health'], (req, res) => {
+// Root & Health check
+app.get(['/', '/health', '/api/health'], (req, res) => {
   res.json({
-    status: 'healthy',
+    status: 'online',
+    service: 'PawnBook Pro API',
     application: 'PawnBook Pro — Jewelry Pawn Broking ERP',
     version: '2.0.0',
-    tenant: req.customerCode,
+    tenant: req.customerCode || 'default',
     time: new Date().toISOString()
   });
 });
