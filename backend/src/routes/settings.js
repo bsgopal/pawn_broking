@@ -6,7 +6,7 @@ import { protect, authorize } from '../middleware/auth.js';
 import { generateTicketNumber } from '../utils/ticketNumberGenerator.js';
 
 const router = express.Router();
-const RENIC_MASTER_URL = process.env.RENIC_MASTER_URL || 'http://localhost:5050';
+const RENIC_MASTER_URL = process.env.RENIC_MASTER_URL || 'https://renicsoft-backend.vercel.app';
 
 // @desc    Preview Formatted Pawn Ticket Number
 // @route   GET /api/settings/preview-ticket-number

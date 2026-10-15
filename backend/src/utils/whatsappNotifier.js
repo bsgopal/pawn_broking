@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const RENIC_MASTER_URL = process.env.RENIC_MASTER_URL || 'http://localhost:5050';
+const RENIC_MASTER_URL = process.env.RENIC_MASTER_URL || 'https://renicsoft-backend.vercel.app';
 
 export async function sendPawnWhatsAppNotification({
   customerCode,

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getTenantModel } from '../config/tenantConnectionManager.js';
 import { getCurrentTenantCode } from './tenantContext.js';
 
-const RENIC_MASTER_URL = process.env.RENIC_MASTER_URL || 'http://localhost:5050';
+const RENIC_MASTER_URL = process.env.RENIC_MASTER_URL || 'https://renicsoft-backend.vercel.app';
 
 /**
  * Screen Gate Middleware: Verifies if the requested screen feature is enabled for the tenant
