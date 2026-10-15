@@ -5,7 +5,7 @@ export async function connectDB() {
     return mongoose.connection;
   }
   try {
-    const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/pawnbook_master';
+    const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pawnbook_master';
     const conn = await mongoose.connect(mongoUri);
     console.log(`[MongoDB Connected]: ${conn.connection.host}/${conn.connection.name}`);
     return conn;
