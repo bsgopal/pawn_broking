@@ -1,0 +1,55 @@
+{
+  "name": "pawnbook-pro-workspace",
+  "version": "2.0.0",
+  "description": "PawnBook Pro Enterprise Pawn Broking & Gold Loan ERP Full-Stack Workspace",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "seed": "npm run seed --prefix backend",
+    "electron:dev": "electron . --dev",
+    "electron:start": "electron .",
+    "build": "npm run build --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "dist": "npm run build --prefix frontend && electron-builder --win"
+  },
+  "build": {
+    "appId": "com.renic.pawnbookpro",
+    "productName": "PawnBookPro",
+    "asar": true,
+    "asarUnpack": [
+      "backend",
+      "frontend/dist"
+    ],
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      "backend/**/*",
+      "frontend/dist/**/*",
+      "icon.ico"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "runAfterFinish": true,
+      "artifactName": "RenicPawnBookPro_Setup.${ext}"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^43.1.0",
+    "electron-builder": "^26.15.3"
+  }
+}
