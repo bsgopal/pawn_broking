@@ -28,8 +28,11 @@ export function getDetectedTenantCode() {
   return 'renic-pb';
 }
 
+const rawBase = import.meta.env.VITE_API_URL ? String(import.meta.env.VITE_API_URL).trim().replace(/\/+$/, '') : '';
+const apiBase = rawBase ? (rawBase.endsWith('/api') ? rawBase : `${rawBase}/api`) : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: apiBase,
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json'
